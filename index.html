@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt X 2.0 - Photo Frame Creator</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Create your customized Prompt X 2.0 Hackathon photo frame. Upload team photo, customize team name, adjust brightness/contrast, and export high-quality PNG.">
+  <meta name="author" content="Commerce Pundit">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&family=Poppins:ital,wght@0,400;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Premium Header -->
+  <header>
+    <div class="logo-container">
+      <!-- Commerce Pundit SVG Logo -->
+      <img src="CP_FullLogo-Black.svg" class="logo-cp" id="logoCp" alt="Commerce Pundit Logo" />
+      <div class="logo-separator"></div>
+      <!-- Prompt X SVG Logo -->
+      <img src="PromptX.svg" class="logo-promptx" id="logoPromptX" alt="Prompt X Logo" />
+    </div>
+    <span class="header-tag" id="headerTag">Hackathon 2026</span>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    
+    <!-- Left Column: Controls -->
+    <section class="controls-panel" aria-label="Editor Controls">
+      
+      <!-- Card 1: Photo Upload -->
+      <div class="card" id="cardUpload">
+        <h2 class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          1. Upload Team Photo
+        </h2>
+        <div class="form-group">
+          <div id="uploadZone" class="upload-zone">
+            <span class="upload-icon">📷</span>
+            <p class="upload-text">Click or Drag Image Here</p>
+            <p class="upload-subtext">Supports PNG, JPG, JPEG</p>
+            <input type="file" id="fileInput" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+          </div>
+          
+          <div id="fileInfoContainer" class="file-info" style="display: none;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 1.2rem;">✓</span>
+              <span id="fileName" class="file-name">photo.png</span>
+            </div>
+            <button id="btnRemovePhoto" class="btn-remove" type="button">Replace</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Team Name -->
+      <div class="card" id="cardTeamName">
+        <h2 class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
+          2. Enter Team Name
+        </h2>
+        <div class="form-group">
+          <label for="inputTeamName">Team Name</label>
+          <input type="text" id="inputTeamName" class="text-input" placeholder="Team name goes here" value="Team name goes here" maxlength="60" autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- Card 3: Image Adjustments -->
+      <div class="card" id="cardAdjustments">
+        <div class="card-header-with-action">
+          <h2 class="card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10z"></path><path d="M12 2a15.3 15.3 0 0 0-4 10 15.3 15.3 0 0 0 4 10z"></path><path d="M2 12h20"></path></svg>
+            3. Photo Settings
+          </h2>
+          <button id="btnReset" class="btn-icon-action" type="button" title="Reset settings">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          </button>
+        </div>
+        
+        <!-- Zoom -->
+        <div class="form-group">
+          <label for="sliderZoom">Zoom Scale</label>
+          <div class="slider-control">
+            <input type="range" id="sliderZoom" min="1.0" max="3.0" step="0.05" value="1.0" disabled />
+            <span id="valZoom" class="slider-value">1.0x</span>
+          </div>
+        </div>
+
+        <!-- Brightness -->
+        <div class="form-group">
+          <label for="sliderBrightness">Brightness</label>
+          <div class="slider-control">
+            <input type="range" id="sliderBrightness" min="50" max="180" step="1" value="100" disabled />
+            <span id="valBrightness" class="slider-value">100%</span>
+          </div>
+        </div>
+
+        <!-- Contrast -->
+        <div class="form-group">
+          <label for="sliderContrast">Contrast</label>
+          <div class="slider-control">
+            <input type="range" id="sliderContrast" min="50" max="180" step="1" value="100" disabled />
+            <span id="valContrast" class="slider-value">100%</span>
+          </div>
+        </div>
+
+        <!-- Saturation -->
+        <div class="form-group">
+          <label for="sliderSaturation">Saturation</label>
+          <div class="slider-control">
+            <input type="range" id="sliderSaturation" min="0" max="200" step="1" value="100" disabled />
+            <span id="valSaturation" class="slider-value">100%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-group" style="margin-top: 10px;">
+        <button id="btnDownload" class="btn btn-primary" style="width: 100%;" type="button" disabled>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download
+        </button>
+      </div>
+
+    </section>
+
+    <!-- Right Column: Live Preview -->
+    <section class="preview-panel" aria-label="Frame Preview">
+      <div class="preview-container" id="previewContainer">
+        
+        <div class="canvas-wrapper">
+          <!-- Canvas handles both interactive editor display and high quality output generation -->
+          <canvas id="frameCanvas"></canvas>
+        </div>
+        
+        <div class="canvas-hint">
+          <span>ℹ</span>
+          <span>Tip: Click and drag directly inside the photo frame to adjust its positioning!</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Section: LinkedIn Captions Prompts -->
+    <section class="captions-section" aria-label="Social Media Caption Prompts">
+      <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        AI LinkedIn Caption Prompts
+      </h2>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">
+        Copy one of these helper prompts, paste it into an LLM (Gemini, Claude, or ChatGPT), and generate a post to share your Prompt X 2.0 badge on LinkedIn!
+      </p>
+
+      <div class="caption-grid">
+        
+        <!-- Prompt 1: Professional -->
+        <div class="caption-card">
+          <div class="caption-header">
+            <span class="caption-tag">1. Professional</span>
+          </div>
+          <div id="captionBody1" class="caption-body">Loading prompt...</div>
+          <button id="btnCopy1" class="btn-copy" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy Prompt
+          </button>
+        </div>
+
+        <!-- Prompt 2: Energetic -->
+        <div class="caption-card">
+          <div class="caption-header">
+            <span class="caption-tag">2. Hackathon Vibe</span>
+          </div>
+          <div id="captionBody2" class="caption-body">Loading prompt...</div>
+          <button id="btnCopy2" class="btn-copy" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy Prompt
+          </button>
+        </div>
+
+        <!-- Prompt 3: Team Spirit -->
+        <div class="caption-card">
+          <div class="caption-header">
+            <span class="caption-tag">3. Team-Focused</span>
+          </div>
+          <div id="captionBody3" class="caption-body">Loading prompt...</div>
+          <button id="btnCopy3" class="btn-copy" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy Prompt
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Built for the <strong>Prompt X 2.0 Hackathon</strong> • Powered by <a href="https://www.commercepundit.com" class="footer-link" target="_blank" rel="noopener noreferrer">Commerce Pundit</a></p>
+  </footer>
+
+  <!-- Core JavaScript -->
+  <script src="template_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
